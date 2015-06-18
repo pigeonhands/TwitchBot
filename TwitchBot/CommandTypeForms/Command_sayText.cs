@@ -29,9 +29,9 @@ namespace TwitchBot.CommandTypeForms
 
         }
 
-        public void SetValues(string txt)
+        public void SetValues(string text)
         {
-            richTextBox1.Text = txt;
+            richTextBox1.Text = text;
         }
 
         private void button1_Click_1(object sender, EventArgs e)

@@ -75,6 +75,7 @@
       <DependentUpon>Command_sayText.cs</DependentUpon>
     </Compile>
     <Compile Include="CommandTypeForms\Component_Control.cs" />
+    <Compile Include="CommandTypeForms\TBotCommand.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +83,12 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="PromptStringBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PromptStringBox.Designer.cs">
+      <DependentUpon>PromptStringBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TBot.cs" />
     <EmbeddedResource Include="AddCommandForm.resx">
@@ -101,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PromptStringBox.resx">
+      <DependentUpon>PromptStringBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

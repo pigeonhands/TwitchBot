@@ -33,6 +33,8 @@
             this.commandOptionPanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.flagIsregex = new System.Windows.Forms.CheckBox();
+            this.flagCasesensitive = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -56,7 +58,7 @@
             // 
             // commandOptionPanel
             // 
-            this.commandOptionPanel.Location = new System.Drawing.Point(6, 55);
+            this.commandOptionPanel.Location = new System.Drawing.Point(6, 89);
             this.commandOptionPanel.Name = "commandOptionPanel";
             this.commandOptionPanel.Size = new System.Drawing.Size(300, 130);
             this.commandOptionPanel.TabIndex = 2;
@@ -78,11 +80,33 @@
             this.textBox1.TabIndex = 4;
             this.textBox1.Text = "!defaultFlag";
             // 
+            // flagIsregex
+            // 
+            this.flagIsregex.AutoSize = true;
+            this.flagIsregex.Location = new System.Drawing.Point(6, 57);
+            this.flagIsregex.Name = "flagIsregex";
+            this.flagIsregex.Size = new System.Drawing.Size(85, 17);
+            this.flagIsregex.TabIndex = 5;
+            this.flagIsregex.Text = "FlagIsRegex";
+            this.flagIsregex.UseVisualStyleBackColor = true;
+            // 
+            // flagCasesensitive
+            // 
+            this.flagCasesensitive.AutoSize = true;
+            this.flagCasesensitive.Location = new System.Drawing.Point(97, 57);
+            this.flagCasesensitive.Name = "flagCasesensitive";
+            this.flagCasesensitive.Size = new System.Drawing.Size(113, 17);
+            this.flagCasesensitive.TabIndex = 6;
+            this.flagCasesensitive.Text = "FlagCaseSensitive";
+            this.flagCasesensitive.UseVisualStyleBackColor = true;
+            // 
             // AddCommandForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 192);
+            this.ClientSize = new System.Drawing.Size(308, 226);
+            this.Controls.Add(this.flagCasesensitive);
+            this.Controls.Add(this.flagIsregex);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.commandOptionPanel);
@@ -104,5 +128,7 @@
         private System.Windows.Forms.Panel commandOptionPanel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox flagIsregex;
+        private System.Windows.Forms.CheckBox flagCasesensitive;
     }
 }

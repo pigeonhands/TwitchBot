@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TwitchBot.CommandTypeForms;
@@ -63,25 +64,42 @@ namespace TwitchBot
         void _bot_OnMessageRead(TBot sender, TBotMessage message, string raw)
         {
             Chatlog.AppendText(string.Format("<{0}> {1}\n", message.Username, message.Text));
-            CommandData cd = null;
+            TBotCommand command = null;
             foreach(ListViewItem i in commandList.Items)
             {
-                if(i.Text.ToLower() == message.Text.ToLower())
+                TBotCommand _tCom = (TBotCommand)i.Tag;
+                
+                string msgCompare = message.Text;
+                if (!_tCom.FlagCaseSensitive)
+                    msgCompare = msgCompare.ToLower();
+                if (_tCom.FlagIsRegex)
                 {
-                    cd = (CommandData)i.Tag;
-                    break;
+                    if (Regex.Match(msgCompare, _tCom.Flag).Success)
+                    {
+                        command = _tCom;
+                        break;
+                    }
                 }
+                else
+                {
+                    if (i.Text.ToLower() == msgCompare)
+                    {
+                        command = _tCom;
+                        break;
+                    }
+                }
+                
             }
-            if (cd != null)
-                ExecuteCommand(cd, message);
+            if (command != null)
+                ExecuteCommand(command, message);
         }
 
-        void ExecuteCommand(CommandData cd, TBotMessage msg)
+        void ExecuteCommand(TBotCommand command, TBotMessage msg)
         {
-            switch(cd.Type)
+            switch(command.Data.Type)
             {
                 case TBotCommandType.SayText:
-                    Bot.SayAsync(((string)cd.TagData[0]).Replace("{username}", msg.Username));
+                    Bot.SayAsync(((string)command.Data.TagData[0]).Replace("{username}", msg.Username));
                     break;
                 case TBotCommandType.AddToGiveaway:
                     AddToGiveaway(msg.Username);
@@ -123,13 +141,17 @@ namespace TwitchBot
                 {
                     bool canAdd = true;
                     foreach (ListViewItem ci in commandList.Items)
-                        if (ci.Text.ToLower() == acf.CommandFlag.ToLower())
+                        if (ci.Text.ToLower() == acf.Command.Flag.ToLower())
                             canAdd = false;
                     if (canAdd)
                     {
-                        ListViewItem i = new ListViewItem(acf.CommandFlag);
+                        ListViewItem i = new ListViewItem(acf.Command.Flag);
                         i.Tag = acf.Command;
-                        i.SubItems.Add(acf.Command.Type);
+                        i.SubItems.Add(acf.Command.Data.Type);
+                        if (acf.Command.FlagIsRegex)
+                            i.SubItems[1].Text += " [R]";
+                        if(acf.Command.FlagCaseSensitive)
+                            i.SubItems[1].Text += " [C]";
                         commandList.Items.Add(i);
                     }
                     else
@@ -150,14 +172,18 @@ namespace TwitchBot
             if(commandList.SelectedIndices.Count > 0)
             {
                 ListViewItem i = commandList.SelectedItems[0];
-                CommandData cd = (CommandData)i.Tag;
+                TBotCommand cd = (TBotCommand)i.Tag;
                 using(AddCommandForm acf = new AddCommandForm(cd, i.Text))
                 {
                     if(acf.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        i.Text = acf.CommandFlag;
+                        i.Text = acf.Command.Flag;
                         i.Tag = acf.Command;
-                        i.SubItems[1].Text = acf.Command.Type;
+                        i.SubItems[1].Text = acf.Command.Data.Type;
+                        if (acf.Command.FlagIsRegex)
+                            i.SubItems[1].Text += " [R]";
+                        if (acf.Command.FlagCaseSensitive)
+                            i.SubItems[1].Text += " [C]";
                     }
                 }
             }
@@ -226,6 +252,29 @@ namespace TwitchBot
             {
                 ListViewItem i = commandList.SelectedItems[0];
                 commandList.Items.Remove(i);
+            }
+        }
+
+        private void addNewWordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using(PromptStringBox psb = new PromptStringBox("Enter a word to blacklist", "Blacklist"))
+            {
+                if(psb.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    blacklistedWords.Items.Add(psb.InputText);
+                }
+            }
+        }
+
+        private void loadWordsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using(OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Text file|*.txt";
+                if(ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    //FileExists and import txt
+                }
             }
         }
     }

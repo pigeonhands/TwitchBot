@@ -115,9 +115,12 @@ namespace TwitchBot
 
                     string message = lineSegments[3].Substring(1, lineSegments[3].Length - 1);
 
-                    if (OnMessageRead != null)
-                        OnMessageRead(this, new TBotMessage(sender, message), line);
-
+                    try
+                    {
+                        if (OnMessageRead != null)
+                            OnMessageRead(this, new TBotMessage(sender, message), line);
+                    }
+                    catch { }
                 }
                 Cleanup();
                 if (OnDisconnect != null)

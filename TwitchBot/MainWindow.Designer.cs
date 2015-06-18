@@ -36,6 +36,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CommandsContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addNewCommandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeSelectedCommandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -53,7 +54,13 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Chatlog = new System.Windows.Forms.TextBox();
-            this.removeSelectedCommandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.blacklistedWords = new System.Windows.Forms.ListBox();
+            this.BlacklistedWordsContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addNewWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadWordsFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.CommandsContext.SuspendLayout();
@@ -62,18 +69,21 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.BlacklistedWordsContext.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(322, 261);
+            this.tabControl1.Size = new System.Drawing.Size(284, 261);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -82,7 +92,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(314, 235);
+            this.tabPage1.Size = new System.Drawing.Size(276, 235);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Commands";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -99,7 +109,7 @@
             this.commandList.Location = new System.Drawing.Point(3, 3);
             this.commandList.MultiSelect = false;
             this.commandList.Name = "commandList";
-            this.commandList.Size = new System.Drawing.Size(308, 229);
+            this.commandList.Size = new System.Drawing.Size(270, 229);
             this.commandList.TabIndex = 0;
             this.commandList.UseCompatibleStateImageBehavior = false;
             this.commandList.View = System.Windows.Forms.View.Details;
@@ -109,12 +119,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Command";
-            this.columnHeader1.Width = 137;
+            this.columnHeader1.Width = 128;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Action";
-            this.columnHeader2.Width = 161;
+            this.columnHeader2.Text = "Info";
+            this.columnHeader2.Width = 134;
             // 
             // CommandsContext
             // 
@@ -122,22 +132,29 @@
             this.addNewCommandToolStripMenuItem,
             this.removeSelectedCommandToolStripMenuItem});
             this.CommandsContext.Name = "CommandsContext";
-            this.CommandsContext.Size = new System.Drawing.Size(222, 70);
+            this.CommandsContext.Size = new System.Drawing.Size(222, 48);
             this.CommandsContext.Opening += new System.ComponentModel.CancelEventHandler(this.CommandsContext_Opening);
             // 
             // addNewCommandToolStripMenuItem
             // 
             this.addNewCommandToolStripMenuItem.Name = "addNewCommandToolStripMenuItem";
-            this.addNewCommandToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.addNewCommandToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.addNewCommandToolStripMenuItem.Text = "Add new command";
             this.addNewCommandToolStripMenuItem.Click += new System.EventHandler(this.addNewCommandToolStripMenuItem_Click);
+            // 
+            // removeSelectedCommandToolStripMenuItem
+            // 
+            this.removeSelectedCommandToolStripMenuItem.Name = "removeSelectedCommandToolStripMenuItem";
+            this.removeSelectedCommandToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.removeSelectedCommandToolStripMenuItem.Text = "Remove selected command";
+            this.removeSelectedCommandToolStripMenuItem.Click += new System.EventHandler(this.removeSelectedCommandToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.tabControl2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(314, 235);
+            this.tabPage3.Size = new System.Drawing.Size(276, 235);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Giveaway";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -152,7 +169,7 @@
             this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(314, 235);
+            this.tabControl2.Size = new System.Drawing.Size(276, 235);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage4
@@ -169,7 +186,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(306, 209);
+            this.tabPage4.Size = new System.Drawing.Size(268, 209);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Main";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -201,7 +218,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.Location = new System.Drawing.Point(6, 147);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(297, 23);
+            this.button3.Size = new System.Drawing.Size(259, 23);
             this.button3.TabIndex = 6;
             this.button3.Text = "Say giveaway commands";
             this.button3.UseVisualStyleBackColor = true;
@@ -213,7 +230,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(6, 171);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(297, 24);
+            this.button2.Size = new System.Drawing.Size(259, 24);
             this.button2.TabIndex = 5;
             this.button2.Text = "Clear current entries";
             this.button2.UseVisualStyleBackColor = true;
@@ -225,7 +242,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(6, 108);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(297, 38);
+            this.button1.Size = new System.Drawing.Size(259, 38);
             this.button1.TabIndex = 4;
             this.button1.Text = "Stop entries and draw winner";
             this.button1.UseVisualStyleBackColor = true;
@@ -275,7 +292,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 4);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(322, 209);
+            this.tabPage5.Size = new System.Drawing.Size(306, 209);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Entries";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -286,7 +303,7 @@
             this.giveawayEntries.FormattingEnabled = true;
             this.giveawayEntries.Location = new System.Drawing.Point(3, 3);
             this.giveawayEntries.Name = "giveawayEntries";
-            this.giveawayEntries.Size = new System.Drawing.Size(316, 203);
+            this.giveawayEntries.Size = new System.Drawing.Size(300, 203);
             this.giveawayEntries.TabIndex = 0;
             // 
             // tabPage2
@@ -296,7 +313,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(314, 235);
+            this.tabPage2.Size = new System.Drawing.Size(276, 235);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Raw Chat";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -307,7 +324,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(3, 209);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(324, 20);
+            this.textBox1.Size = new System.Drawing.Size(286, 20);
             this.textBox1.TabIndex = 1;
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
@@ -321,23 +338,72 @@
             this.Chatlog.Multiline = true;
             this.Chatlog.Name = "Chatlog";
             this.Chatlog.ReadOnly = true;
-            this.Chatlog.Size = new System.Drawing.Size(324, 198);
+            this.Chatlog.Size = new System.Drawing.Size(286, 198);
             this.Chatlog.TabIndex = 0;
             this.Chatlog.Text = "Made by BahNahNah\r\nuid=2388291\r\n";
             this.Chatlog.WordWrap = false;
             // 
-            // removeSelectedCommandToolStripMenuItem
+            // tabPage6
             // 
-            this.removeSelectedCommandToolStripMenuItem.Name = "removeSelectedCommandToolStripMenuItem";
-            this.removeSelectedCommandToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.removeSelectedCommandToolStripMenuItem.Text = "Remove selected command";
-            this.removeSelectedCommandToolStripMenuItem.Click += new System.EventHandler(this.removeSelectedCommandToolStripMenuItem_Click);
+            this.tabPage6.Controls.Add(this.blacklistedWords);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(276, 235);
+            this.tabPage6.TabIndex = 3;
+            this.tabPage6.Text = "Blacklist";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // blacklistedWords
+            // 
+            this.blacklistedWords.ContextMenuStrip = this.BlacklistedWordsContext;
+            this.blacklistedWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.blacklistedWords.FormattingEnabled = true;
+            this.blacklistedWords.Location = new System.Drawing.Point(0, 0);
+            this.blacklistedWords.Name = "blacklistedWords";
+            this.blacklistedWords.Size = new System.Drawing.Size(276, 235);
+            this.blacklistedWords.TabIndex = 0;
+            // 
+            // BlacklistedWordsContext
+            // 
+            this.BlacklistedWordsContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNewWordToolStripMenuItem,
+            this.loadWordsFromFileToolStripMenuItem,
+            this.clearListToolStripMenuItem,
+            this.removeSelectedToolStripMenuItem});
+            this.BlacklistedWordsContext.Name = "BlacklistedWordsContext";
+            this.BlacklistedWordsContext.Size = new System.Drawing.Size(184, 114);
+            // 
+            // addNewWordToolStripMenuItem
+            // 
+            this.addNewWordToolStripMenuItem.Name = "addNewWordToolStripMenuItem";
+            this.addNewWordToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.addNewWordToolStripMenuItem.Text = "Add new word";
+            this.addNewWordToolStripMenuItem.Click += new System.EventHandler(this.addNewWordToolStripMenuItem_Click);
+            // 
+            // loadWordsFromFileToolStripMenuItem
+            // 
+            this.loadWordsFromFileToolStripMenuItem.Name = "loadWordsFromFileToolStripMenuItem";
+            this.loadWordsFromFileToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.loadWordsFromFileToolStripMenuItem.Text = "Load words from file";
+            this.loadWordsFromFileToolStripMenuItem.Click += new System.EventHandler(this.loadWordsFromFileToolStripMenuItem_Click);
+            // 
+            // clearListToolStripMenuItem
+            // 
+            this.clearListToolStripMenuItem.Name = "clearListToolStripMenuItem";
+            this.clearListToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.clearListToolStripMenuItem.Text = "Clear list";
+            // 
+            // removeSelectedToolStripMenuItem
+            // 
+            this.removeSelectedToolStripMenuItem.Name = "removeSelectedToolStripMenuItem";
+            this.removeSelectedToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.removeSelectedToolStripMenuItem.Text = "remove selected";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 261);
+            this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
@@ -355,6 +421,8 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.BlacklistedWordsContext.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -386,5 +454,12 @@
         private System.Windows.Forms.Label GiveawayWinner;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem removeSelectedCommandToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.ListBox blacklistedWords;
+        private System.Windows.Forms.ContextMenuStrip BlacklistedWordsContext;
+        private System.Windows.Forms.ToolStripMenuItem addNewWordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadWordsFromFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeSelectedToolStripMenuItem;
     }
 }

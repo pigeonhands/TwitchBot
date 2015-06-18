@@ -13,15 +13,10 @@ namespace TwitchBot
 {
     public partial class AddCommandForm : Form
     {
-        private CommandData _data;
-        private string _commandFlag;
-        public CommandData Command
+        private TBotCommand _data;
+        public TBotCommand Command
         {
             get { return _data; }
-        }
-        public string CommandFlag
-        {
-            get { return _commandFlag; }
         }
         public AddCommandForm()
         {
@@ -32,13 +27,15 @@ namespace TwitchBot
                 commandTypeList.SelectedIndex = 0;
             SetComponent(null, "");
         }
-        public AddCommandForm(CommandData cd, string flag)
+        public AddCommandForm(TBotCommand command, string flag)
         {
             InitializeComponent();
+            flagIsregex.Checked = command.FlagIsRegex;
+            flagCasesensitive.Checked = command.FlagCaseSensitive;
             foreach (var cmdName in typeof(TBotCommandType).GetFields())
                 commandTypeList.Items.Add(cmdName.GetValue(cmdName));
-            commandTypeList.Text = cd.Type;
-            SetComponent(cd, flag);
+            commandTypeList.Text = command.Data.Type;
+            SetComponent(command, flag);
         }
 
 
@@ -52,7 +49,7 @@ namespace TwitchBot
 
         }
 
-        void SetComponent(CommandData cd, string flag)
+        void SetComponent(TBotCommand command, string flag)
         {
             commandOptionPanel.Controls.Clear();
             if (flag != "")
@@ -61,8 +58,8 @@ namespace TwitchBot
             {
                 case TBotCommandType.SayText:
                     Command_sayText f = new Command_sayText(CommandChosen);
-                    if (cd != null)
-                        f.SetValues((string)cd.TagData[0]);
+                    if (command != null)
+                        f.SetValues((string)command.Data.TagData[0]);
                     commandOptionPanel.Controls.Add(f);
                     break;
                 case TBotCommandType.AddToGiveaway:
@@ -81,8 +78,9 @@ namespace TwitchBot
                 MessageBox.Show("Enter a flag");
                 return;
             }
-            _commandFlag = textBox1.Text;
-            _data = cmd;
+            _data = new TBotCommand(cmd, textBox1.Text);
+            _data.FlagIsRegex = flagIsregex.Checked;
+            _data.FlagCaseSensitive = flagCasesensitive.Checked;
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
