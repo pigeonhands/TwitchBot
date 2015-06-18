@@ -29,5 +29,6 @@ namespace TwitchBot.CommandTypeForms
     public struct TBotCommandType
     {
         public const string SayText = "Say Text";
+        public const string AddToGiveaway = "Add to giveaway";
     }
 }

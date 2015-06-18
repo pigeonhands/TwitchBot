@@ -65,6 +65,9 @@ namespace TwitchBot
                         f.SetValues((string)cd.TagData[0]);
                     commandOptionPanel.Controls.Add(f);
                     break;
+                case TBotCommandType.AddToGiveaway:
+                    commandOptionPanel.Controls.Add(new Command_AddToGiveaway(CommandChosen));
+                    break;
                 default:
                     commandOptionPanel.Controls.Add(new Command_notCompleted());
                     break;

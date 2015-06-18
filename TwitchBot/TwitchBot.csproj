@@ -56,6 +56,12 @@
     <Compile Include="BotStartForm.Designer.cs">
       <DependentUpon>BotStartForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommandTypeForms\Command_AddToGiveaway.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandTypeForms\Command_AddToGiveaway.Designer.cs">
+      <DependentUpon>Command_AddToGiveaway.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommandTypeForms\Command_notCompleted.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -83,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BotStartForm.resx">
       <DependentUpon>BotStartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandTypeForms\Command_AddToGiveaway.resx">
+      <DependentUpon>Command_AddToGiveaway.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandTypeForms\Command_notCompleted.resx">
       <DependentUpon>Command_notCompleted.cs</DependentUpon>
