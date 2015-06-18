@@ -109,7 +109,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "BotStartForm";
-            this.Text = "BotStartForm";
+            this.Text = "Bot details";
             this.Load += new System.EventHandler(this.BotStartForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -90,7 +90,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddCommandForm";
-            this.Text = "AddCommandForm";
+            this.Text = "Command";
             this.Load += new System.EventHandler(this.AddCommandForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
