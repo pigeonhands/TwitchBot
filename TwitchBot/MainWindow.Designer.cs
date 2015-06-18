@@ -53,6 +53,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Chatlog = new System.Windows.Forms.TextBox();
+            this.removeSelectedCommandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.CommandsContext.SuspendLayout();
@@ -118,9 +119,10 @@
             // CommandsContext
             // 
             this.CommandsContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addNewCommandToolStripMenuItem});
+            this.addNewCommandToolStripMenuItem,
+            this.removeSelectedCommandToolStripMenuItem});
             this.CommandsContext.Name = "CommandsContext";
-            this.CommandsContext.Size = new System.Drawing.Size(180, 26);
+            this.CommandsContext.Size = new System.Drawing.Size(222, 70);
             this.CommandsContext.Opening += new System.ComponentModel.CancelEventHandler(this.CommandsContext_Opening);
             // 
             // addNewCommandToolStripMenuItem
@@ -324,6 +326,13 @@
             this.Chatlog.Text = "Made by BahNahNah\r\nuid=2388291\r\n";
             this.Chatlog.WordWrap = false;
             // 
+            // removeSelectedCommandToolStripMenuItem
+            // 
+            this.removeSelectedCommandToolStripMenuItem.Name = "removeSelectedCommandToolStripMenuItem";
+            this.removeSelectedCommandToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.removeSelectedCommandToolStripMenuItem.Text = "Remove selected command";
+            this.removeSelectedCommandToolStripMenuItem.Click += new System.EventHandler(this.removeSelectedCommandToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,5 +385,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label GiveawayWinner;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem removeSelectedCommandToolStripMenuItem;
     }
 }

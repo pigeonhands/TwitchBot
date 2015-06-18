@@ -219,5 +219,14 @@ namespace TwitchBot
             }
             Bot.SayAsync("Type {0} to join the giveaway!", string.Join(", ", giveawayCommands.ToArray()));
         }
+
+        private void removeSelectedCommandToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (commandList.SelectedIndices.Count > 0)
+            {
+                ListViewItem i = commandList.SelectedItems[0];
+                commandList.Items.Remove(i);
+            }
+        }
     }
 }
