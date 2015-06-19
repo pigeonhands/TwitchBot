@@ -27,7 +27,7 @@ namespace TwitchBot.CommandTypeForms
         private void button1_Click(object sender, EventArgs e)
         {
             if(callback != null)
-                callback(new CommandData(TBotCommandType.AddToGiveaway), false);
+                callback(new CommandData(TBotCommandType.AddToGiveaway), ParamiterType.NoParamiters);
         }
     }
 }

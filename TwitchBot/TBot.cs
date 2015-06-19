@@ -128,6 +128,7 @@ namespace TwitchBot
                 if (OnDisconnect != null)
                     OnDisconnect(this, ex);
             }
+            
         }
 
         private void Cleanup()
@@ -155,7 +156,7 @@ namespace TwitchBot
             }
         }
 
-        public async void SayAsync(string msg, params string[] arg)
+        public void SayAsync(string msg, params string[] arg)
         {
             string Message = msg;
             if (arg.Length != 0)
@@ -166,8 +167,27 @@ namespace TwitchBot
             if (writer != null)
             {
                 writer.WriteLine("PRIVMSG {0} :{1}", Channel, Message);
-                await writer.FlushAsync();
+                writer.FlushAsync();
             }
+        }
+
+        public void SayBuffer(string msg, params string[] arg)
+        {
+            string Message = msg;
+            if (arg.Length != 0)
+            {
+                for (int i = 0; i < arg.Length; i++)
+                    Message = Message.Replace("{" + i.ToString() + "}", arg[i]);
+            }
+            if (writer != null)
+            {
+                writer.WriteLine("PRIVMSG {0} :{1}", Channel, Message);
+            }
+        }
+
+        public void SayFlush()
+        {
+            writer.FlushAsync();
         }
 
         public void Timeout(string user, int time)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TwitchBot.CommandTypeForms
 {
-    public delegate void CommandCallback(CommandData cmd, bool hasParamiters);
+    public delegate void CommandCallback(CommandData cmd, ParamiterType paramiterOptions);
     public class CommandData
     {
         private object[] _TagData;
@@ -33,6 +33,8 @@ namespace TwitchBot.CommandTypeForms
         public const string BanUser = "Ban user";
         public const string TimeoutUser = "Timeout User";
         public const string AntiBot = "AntiBot On/Off";
+        public const string StartGiveaway = "Start Giveaway";
+        public const string EndGiveaway = "End Giveaway";
         //public const string WisperText = "Wisper Text";
     }
 }

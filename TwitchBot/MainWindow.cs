@@ -24,7 +24,6 @@ namespace TwitchBot
 
         public MainWindow()
         {
-            
             using(BotStartForm bsf = new BotStartForm())
             {
                 if(bsf.ShowDialog() != System.Windows.Forms.DialogResult.OK)
@@ -40,6 +39,8 @@ namespace TwitchBot
             _bot.OnConnect += _bot_OnConnect;
             _bot.Start();
         }
+
+        #region " Callbacks "
 
         void _bot_OnConnect(TBot sender, bool success)
         {
@@ -57,10 +58,12 @@ namespace TwitchBot
 
         void _bot_OnDisconnect(TBot sender, Exception ex)
         {
-            MessageBox.Show("Lost connection! \n " + ex.Message);
+            MessageBox.Show("Lost connection! \n " + ex.ToString());
             Environment.Exit(0);
             return;
         }
+
+        
 
         void _bot_OnMessageRead(TBot sender, TBotMessage message, string raw)
         {
@@ -79,30 +82,39 @@ namespace TwitchBot
                 if (_tCom.FlagIsRegex)
                 {
                     if (Regex.Match(msgCompare, _tCom.Flag).Success)
-                    {
                         command = _tCom;
-                        break;
-                    }
                 }
                 else
                 {
-                    if (i.Text.ToLower() == msgCompare || i.Text.ToLower() == msgCompareSplit)
+                    switch(_tCom.Paramiters)
                     {
-                        command = _tCom;
-                        break;
+                        case ParamiterType.HasParamiters:
+                            if (i.Text.ToLower() == msgCompare)
+                                command = _tCom;
+                            break;
+                        case ParamiterType.NoParamiters:
+                            if (i.Text.ToLower() == msgCompareSplit)
+                                command = _tCom;
+                            break;
+                        default:
+                            if (i.Text.ToLower() == msgCompareSplit || i.Text.ToLower() == msgCompare)
+                                command = _tCom;
+                            break;
                     }
                 }
-                
+                if (command != null)
+                    break;
             }
             if (command != null)
                 ExecuteCommand(command, message);
             CheckBlacklist(message);
         }
 
-        bool IsMod(string username)
-        {
-            return modList.Items.Contains(username.ToLower());
-        }
+
+        #endregion
+
+
+        
 
         void ExecuteCommand(TBotCommand command, TBotMessage msg)
         {
@@ -142,10 +154,119 @@ namespace TwitchBot
                         return;
                     if (msgBreakdown[1].ToLower() != "on" && msgBreakdown[1].ToLower() != "off")
                         return;
-                    //this.Invoke(msgBreakdown[1].ToLower() == "on" ? (Action)Bot.AntiBotOn : Bot.AntiBotOff);
-                    Bot.GetType().GetMethod("AntiBot" + msgBreakdown[1], System.Reflection.BindingFlags.IgnoreCase).Invoke(null, new object[] { });
+                    this.Invoke(msgBreakdown[1].ToLower() == "on" ? (Action)Bot.AntiBotOn : Bot.AntiBotOff);
+                    break;
+
+                case TBotCommandType.StartGiveaway:
+                    if (acceptGiveawayEntries.Checked)
+                        return;
+                    acceptGiveawayEntries.Checked = true;
+                    msgBreakdown = msg.Text.Split(new char[] { ' ' });
+                    if (msgBreakdown.Length == 2)
+                    {
+                        acceptGiveawayEntries.Checked = true;
+                        AddCommand(new TBotCommand(new CommandData(TBotCommandType.AddToGiveaway), msgBreakdown[1]));
+                    }
+                    Bot.SayBuffer("Giveaway started!");
+                    SayGiveawayCommands();
+                    break;
+
+                case TBotCommandType.EndGiveaway:
+                    if (!acceptGiveawayEntries.Checked)
+                        return;
+                    acceptGiveawayEntries.Checked = false;
+                    msgBreakdown = msg.Text.Split(new char[] { ' ' });
+                    acceptGiveawayEntries.Checked = false;
+                    if (giveawayEntries.Items.Count < 1)
+                    {
+                        GiveawayWinner.Text = "Nobody wins.";
+                    }
+                    else
+                    {
+                        string winner = (string)giveawayEntries.Items[r.Next(0, giveawayEntries.Items.Count - 1)];
+                        GiveawayWinner.Text = winner;
+                        _bot.SayAsync("{0} has won the giveaway!", winner);
+                    }
+                    if (msgBreakdown.Length == 2 && msgBreakdown[1] == "clear")
+                        lock (Bot)
+                        {
+                            foreach(ListViewItem i in commandList.Items)
+                                if (((TBotCommand)i.Tag).Data.Type == TBotCommandType.AddToGiveaway)
+                                    commandList.Items.Remove(i);
+                        }
                     break;
             }
+        }
+
+        #region " Functions "
+
+        private void SayAllCommands()
+        {
+            List<string> Commands = new List<string>();
+            Commands.Add("Commands:");
+            foreach(ListViewItem i in commandList.Items)
+            {
+                TBotCommand cmd = (TBotCommand)i.Tag;
+                switch(cmd.Data.Type)
+                {
+                    case TBotCommandType.SayText:
+                        Commands.Add(string.Format("[{0}] {1} - Say: {2}", i.Group.Name, cmd.Flag, (string)cmd.Data.TagData[0]));
+                        break;
+                    default:
+                         Commands.Add(string.Format("[{0}] {1} - {2}", i.Group.Name, cmd.Flag, cmd.Data.Type));
+                        break;
+                }
+            }
+            Bot.SayAsync(string.Join("; ", Commands.ToArray()));
+        }
+
+        private void SayGiveawayCommands()
+        {
+            List<string> giveawayCommands = new List<string>();
+            foreach (ListViewItem i in commandList.Items)
+            {
+                TBotCommand cmd = (TBotCommand)i.Tag;
+                if (cmd.Data.Type == TBotCommandType.AddToGiveaway)
+                    giveawayCommands.Add(i.Text);
+            }
+            if (giveawayCommands.Count < 1)
+            {
+                Bot.SayBuffer("No commands set to join the giveaway.");
+                Bot.SayFlush();
+                return;
+            }
+            Bot.SayBuffer("Type {0} to join the giveaway!", string.Join(" or ", giveawayCommands.ToArray()));
+            Bot.SayFlush();
+        }
+
+
+        bool IsMod(string username)
+        {
+            return modList.Items.Contains(username.ToLower());
+        }
+
+        private bool AddCommand(TBotCommand cmd)
+        {
+            bool canAdd = true;
+            foreach (ListViewItem ci in commandList.Items)
+                if (ci.Text.ToLower() == cmd.Flag.ToLower())
+                    canAdd = false;
+            if (canAdd)
+            {
+                ListViewItem i = new ListViewItem(cmd.Flag);
+                i.Tag = cmd;
+                i.SubItems.Add(cmd.Data.Type);
+                if (cmd.FlagIsRegex)
+                    i.SubItems[1].Text += " [R]";
+                if (cmd.FlagCaseSensitive)
+                    i.SubItems[1].Text += " [C]";
+                if (cmd.RequiresModerator)
+                    i.Group = commandList.Groups["mod"];
+                else
+                    i.Group = commandList.Groups["all"];
+                commandList.Items.Add(i);
+            }
+            return canAdd;
         }
 
         void CheckBlacklist(TBotMessage msg)
@@ -178,6 +299,8 @@ namespace TwitchBot
             currentGiveawayEntrieCount.Text = giveawayEntries.Items.Count.ToString();
         }
 
+        #endregion
+
         private void MainWindow_Load(object sender, EventArgs e)
         {
 
@@ -194,29 +317,8 @@ namespace TwitchBot
             {
                 if(acf.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    bool canAdd = true;
-                    foreach (ListViewItem ci in commandList.Items)
-                        if (ci.Text.ToLower() == acf.Command.Flag.ToLower())
-                            canAdd = false;
-                    if (canAdd)
-                    {
-                        ListViewItem i = new ListViewItem(acf.Command.Flag);
-                        i.Tag = acf.Command;
-                        i.SubItems.Add(acf.Command.Data.Type);
-                        if (acf.Command.FlagIsRegex)
-                            i.SubItems[1].Text += " [R]";
-                        if(acf.Command.FlagCaseSensitive)
-                            i.SubItems[1].Text += " [C]";
-                        if (acf.Command.RequiresModerator)
-                            i.Group = commandList.Groups["mod"];
-                        else
-                            i.Group = commandList.Groups["everyone"];
-                        commandList.Items.Add(i);
-                    }
-                    else
-                    {
+                    if(!AddCommand(acf.Command))
                         MessageBox.Show("There is alredy a command with this flag.");
-                    }
                 }
             }
         }
@@ -246,7 +348,7 @@ namespace TwitchBot
                         if (acf.Command.RequiresModerator)
                             i.Group = commandList.Groups["mod"];
                         else
-                            i.Group = commandList.Groups["everyone"];
+                            i.Group = commandList.Groups["all"];
                     }
                 }
             }
@@ -295,21 +397,10 @@ namespace TwitchBot
 
         private void button3_Click(object sender, EventArgs e)
         {
-            List<string> giveawayCommands = new List<string>();
-            foreach(ListViewItem i in commandList.Items)
-            {
-                CommandData cd = (CommandData)i.Tag;
-                if (cd.Type == TBotCommandType.AddToGiveaway)
-                    giveawayCommands.Add(i.Text);
-            }
-            if(giveawayCommands.Count < 1)
-            {
-                MessageBox.Show("No giveaway commands, add in the commands tab.");
-                return;
-            }
-            Bot.SayAsync("Type {0} to join the giveaway!", string.Join(", ", giveawayCommands.ToArray()));
+            SayGiveawayCommands();
         }
 
+        
         private void removeSelectedCommandToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (commandList.SelectedIndices.Count > 0)

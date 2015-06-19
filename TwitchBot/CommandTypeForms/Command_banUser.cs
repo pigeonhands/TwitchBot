@@ -22,7 +22,7 @@ namespace TwitchBot.CommandTypeForms
         private void button1_Click(object sender, EventArgs e)
         {
             if (callback != null)
-                callback(new CommandData(TBotCommandType.BanUser), true);
+                callback(new CommandData(TBotCommandType.BanUser), ParamiterType.HasParamiters);
         }
     }
 }

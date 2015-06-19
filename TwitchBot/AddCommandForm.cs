@@ -65,27 +65,38 @@ namespace TwitchBot
                     commandOptionPanel.Controls.Add(f);
                     break;
                 case TBotCommandType.AddToGiveaway:
-                    commandOptionPanel.Controls.Add(new Command_AddToGiveaway(CommandChosen));
+                    SetCommandPanel(new Command_AddToGiveaway(CommandChosen));
                     break;
                 case TBotCommandType.BanUser:
-                    commandOptionPanel.Controls.Add(new Command_banUser(CommandChosen));
+                    SetCommandPanel(new Command_banUser(CommandChosen));
                     break;
                 case TBotCommandType.TimeoutUser:
-                    commandOptionPanel.Controls.Add(new Command_TimeoutUser(CommandChosen));
+                    SetCommandPanel(new Command_TimeoutUser(CommandChosen));
                     break;
                 case TBotCommandType.AntiBot:
-                    commandOptionPanel.Controls.Add(new Command_AntiBotOnOff(CommandChosen));
+                    SetCommandPanel(new Command_AntiBotOnOff(CommandChosen));
                     break;
-
+                case TBotCommandType.StartGiveaway:
+                    SetCommandPanel(new Command_StartGiveaway(CommandChosen));
+                    break;
+                case TBotCommandType.EndGiveaway:
+                    SetCommandPanel(new Command_EndGiveaway(CommandChosen));
+                    break;
 
 
                 default:
-                    commandOptionPanel.Controls.Add(new Command_notCompleted());
+                    SetCommandPanel(new Command_notCompleted());
                     break;
             }
         }
 
-        void CommandChosen(CommandData cmd, bool hasParamiters)
+        void SetCommandPanel(Control ctr)
+        {
+            commandOptionPanel.Controls.Clear();
+            commandOptionPanel.Controls.Add(ctr);
+        }
+
+        void CommandChosen(CommandData cmd, ParamiterType paramiterOptions)
         {
             if(textBox1.Text == "")
             {
@@ -93,7 +104,7 @@ namespace TwitchBot
                 return;
             }
 
-            if(hasParamiters)
+            if (paramiterOptions != ParamiterType.NoParamiters)
             {
                 if(textBox1.Text.Contains(' '))
                 {
@@ -123,6 +134,7 @@ namespace TwitchBot
             _data.FlagIsRegex = flagIsregex.Checked;
             _data.FlagCaseSensitive = flagCasesensitive.Checked;
             _data.RequiresModerator = modOnly.Checked;
+            _data.Paramiters = paramiterOptions;
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 

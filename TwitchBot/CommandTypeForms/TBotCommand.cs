@@ -13,6 +13,7 @@ namespace TwitchBot.CommandTypeForms
         private bool _flagisregex = false;
         private bool _flagcasesensitive = false;
         private bool _requiresModerator = false;
+        private ParamiterType _paraitmeroption = ParamiterType.NoParamiters;
 
         public TBotCommand(CommandData cd, string flag)
         {
@@ -43,5 +44,16 @@ namespace TwitchBot.CommandTypeForms
             get { return _requiresModerator; }
             set { _requiresModerator = value; }
         }
+        public ParamiterType Paramiters
+        {
+            get { return _paraitmeroption; }
+            set { _paraitmeroption = value; }
+        }
+    }
+    public enum ParamiterType
+    {
+        HasParamiters,
+        NoParamiters,
+        OptionalParamiters
     }
 }

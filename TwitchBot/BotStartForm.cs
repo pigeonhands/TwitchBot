@@ -31,7 +31,7 @@ namespace TwitchBot
 
         private void BotStartForm_Load(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

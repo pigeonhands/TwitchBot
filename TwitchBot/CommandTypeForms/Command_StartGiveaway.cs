@@ -10,19 +10,24 @@ using System.Windows.Forms;
 
 namespace TwitchBot.CommandTypeForms
 {
-    public partial class Command_TimeoutUser : UserControl
+    public partial class Command_StartGiveaway : UserControl
     {
         CommandCallback callback;
-        public Command_TimeoutUser(CommandCallback cc)
+        public Command_StartGiveaway(CommandCallback cc)
         {
             callback = cc;
             InitializeComponent();
         }
 
+        private void Command_StartGiveaway_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (callback != null)
-                callback(new CommandData(TBotCommandType.TimeoutUser), ParamiterType.HasParamiters);
+                callback(new CommandData(TBotCommandType.StartGiveaway), ParamiterType.OptionalParamiters);
         }
     }
 }

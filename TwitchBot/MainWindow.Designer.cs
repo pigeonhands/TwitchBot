@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Public Commands", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Moderator Commands", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Public Commands", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Moderator Commands", System.Windows.Forms.HorizontalAlignment.Left);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.commandList = new System.Windows.Forms.ListView();
@@ -114,7 +114,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(379, 271);
+            this.tabControl1.Size = new System.Drawing.Size(384, 261);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -123,7 +123,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(371, 245);
+            this.tabPage1.Size = new System.Drawing.Size(376, 235);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Commands";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -137,17 +137,17 @@
             this.commandList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.commandList.FullRowSelect = true;
             this.commandList.GridLines = true;
-            listViewGroup1.Header = "Public Commands";
-            listViewGroup1.Name = "everyone";
-            listViewGroup2.Header = "Moderator Commands";
-            listViewGroup2.Name = "mod";
+            listViewGroup3.Header = "Public Commands";
+            listViewGroup3.Name = "all";
+            listViewGroup4.Header = "Moderator Commands";
+            listViewGroup4.Name = "mod";
             this.commandList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2});
+            listViewGroup3,
+            listViewGroup4});
             this.commandList.Location = new System.Drawing.Point(3, 3);
             this.commandList.MultiSelect = false;
             this.commandList.Name = "commandList";
-            this.commandList.Size = new System.Drawing.Size(365, 239);
+            this.commandList.Size = new System.Drawing.Size(370, 229);
             this.commandList.TabIndex = 0;
             this.commandList.UseCompatibleStateImageBehavior = false;
             this.commandList.View = System.Windows.Forms.View.Details;
@@ -162,7 +162,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Info";
-            this.columnHeader2.Width = 147;
+            this.columnHeader2.Width = 197;
             // 
             // CommandsContext
             // 
@@ -192,7 +192,7 @@
             this.tabPage6.Controls.Add(this.tabControl3);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(371, 245);
+            this.tabPage6.Size = new System.Drawing.Size(376, 235);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Chat Control";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -206,7 +206,7 @@
             this.tabControl3.Location = new System.Drawing.Point(0, 0);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(371, 245);
+            this.tabControl3.Size = new System.Drawing.Size(376, 235);
             this.tabControl3.TabIndex = 1;
             // 
             // tabPage7
@@ -217,30 +217,30 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 4);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(363, 219);
+            this.tabPage7.Size = new System.Drawing.Size(368, 209);
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "Main";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.button8);
             this.groupBox3.Controls.Add(this.button9);
             this.groupBox3.Location = new System.Drawing.Point(4, 124);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(351, 53);
+            this.groupBox3.Size = new System.Drawing.Size(356, 53);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Slow (30 sec interval)";
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(191, 19);
+            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button8.Location = new System.Drawing.Point(192, 19);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(154, 23);
+            this.button8.Size = new System.Drawing.Size(158, 23);
             this.button8.TabIndex = 1;
             this.button8.Text = "Disable";
             this.button8.UseVisualStyleBackColor = true;
@@ -248,9 +248,11 @@
             // 
             // button9
             // 
+            this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button9.Location = new System.Drawing.Point(6, 19);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(154, 23);
+            this.button9.Size = new System.Drawing.Size(162, 23);
             this.button9.TabIndex = 0;
             this.button9.Text = "Enable";
             this.button9.UseVisualStyleBackColor = true;
@@ -258,23 +260,23 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Controls.Add(this.button7);
             this.groupBox2.Location = new System.Drawing.Point(6, 65);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(351, 53);
+            this.groupBox2.Size = new System.Drawing.Size(356, 53);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Subscribers only";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(191, 19);
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.Location = new System.Drawing.Point(190, 19);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(154, 23);
+            this.button6.Size = new System.Drawing.Size(160, 23);
             this.button6.TabIndex = 1;
             this.button6.Text = "Disable";
             this.button6.UseVisualStyleBackColor = true;
@@ -282,9 +284,11 @@
             // 
             // button7
             // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button7.Location = new System.Drawing.Point(6, 19);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(154, 23);
+            this.button7.Size = new System.Drawing.Size(160, 23);
             this.button7.TabIndex = 0;
             this.button7.Text = "Enable";
             this.button7.UseVisualStyleBackColor = true;
@@ -292,23 +296,23 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(351, 53);
+            this.groupBox1.Size = new System.Drawing.Size(356, 53);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "AntiBot";
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(191, 19);
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(190, 19);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(154, 23);
+            this.button5.Size = new System.Drawing.Size(160, 23);
             this.button5.TabIndex = 1;
             this.button5.Text = "Disable";
             this.button5.UseVisualStyleBackColor = true;
@@ -316,9 +320,11 @@
             // 
             // button4
             // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button4.Location = new System.Drawing.Point(6, 19);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(154, 23);
+            this.button4.Size = new System.Drawing.Size(160, 23);
             this.button4.TabIndex = 0;
             this.button4.Text = "Enable";
             this.button4.UseVisualStyleBackColor = true;
@@ -330,7 +336,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 4);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(363, 219);
+            this.tabPage8.Size = new System.Drawing.Size(368, 209);
             this.tabPage8.TabIndex = 1;
             this.tabPage8.Text = "Blacklist Words";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -342,7 +348,7 @@
             this.blacklistedWords.FormattingEnabled = true;
             this.blacklistedWords.Location = new System.Drawing.Point(3, 3);
             this.blacklistedWords.Name = "blacklistedWords";
-            this.blacklistedWords.Size = new System.Drawing.Size(357, 213);
+            this.blacklistedWords.Size = new System.Drawing.Size(362, 203);
             this.blacklistedWords.TabIndex = 0;
             // 
             // BlacklistedWordsContext
@@ -388,7 +394,7 @@
             this.tabPage3.Controls.Add(this.tabControl2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(371, 245);
+            this.tabPage3.Size = new System.Drawing.Size(376, 235);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Giveaway";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -403,7 +409,7 @@
             this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(371, 245);
+            this.tabControl2.Size = new System.Drawing.Size(376, 235);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage4
@@ -420,7 +426,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(363, 219);
+            this.tabPage4.Size = new System.Drawing.Size(368, 209);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Main";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -450,7 +456,7 @@
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(6, 157);
+            this.button3.Location = new System.Drawing.Point(6, 147);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(354, 23);
             this.button3.TabIndex = 6;
@@ -462,7 +468,7 @@
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(6, 181);
+            this.button2.Location = new System.Drawing.Point(6, 171);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(354, 24);
             this.button2.TabIndex = 5;
@@ -474,7 +480,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(6, 118);
+            this.button1.Location = new System.Drawing.Point(6, 108);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(354, 38);
             this.button1.TabIndex = 4;
@@ -547,7 +553,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(371, 245);
+            this.tabPage2.Size = new System.Drawing.Size(376, 235);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Raw Chat";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -556,7 +562,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(3, 219);
+            this.textBox1.Location = new System.Drawing.Point(3, 209);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(381, 20);
             this.textBox1.TabIndex = 1;
@@ -572,7 +578,7 @@
             this.Chatlog.Multiline = true;
             this.Chatlog.Name = "Chatlog";
             this.Chatlog.ReadOnly = true;
-            this.Chatlog.Size = new System.Drawing.Size(381, 208);
+            this.Chatlog.Size = new System.Drawing.Size(381, 198);
             this.Chatlog.TabIndex = 0;
             this.Chatlog.Text = "Made by BahNahNah\r\nuid=2388291\r\n";
             this.Chatlog.WordWrap = false;
@@ -582,7 +588,7 @@
             this.tabPage9.Controls.Add(this.groupBox4);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(371, 245);
+            this.tabPage9.Size = new System.Drawing.Size(376, 235);
             this.tabPage9.TabIndex = 4;
             this.tabPage9.Text = "Bot settings";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -593,7 +599,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(371, 245);
+            this.groupBox4.Size = new System.Drawing.Size(376, 235);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Bot Moderator list";
@@ -603,9 +609,11 @@
             this.modList.ContextMenuStrip = this.modListContext;
             this.modList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.modList.FormattingEnabled = true;
+            this.modList.Items.AddRange(new object[] {
+            "bahnahnah"});
             this.modList.Location = new System.Drawing.Point(3, 16);
             this.modList.Name = "modList";
-            this.modList.Size = new System.Drawing.Size(365, 226);
+            this.modList.Size = new System.Drawing.Size(370, 216);
             this.modList.TabIndex = 0;
             // 
             // modListContext
@@ -642,11 +650,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 271);
+            this.ClientSize = new System.Drawing.Size(384, 261);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(300, 300);
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "MainWindow";
             this.Text = "TwitchBot - BahNahNah";
             this.Load += new System.EventHandler(this.MainWindow_Load);
