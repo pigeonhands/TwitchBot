@@ -62,6 +62,18 @@
     <Compile Include="CommandTypeForms\Command_AddToGiveaway.Designer.cs">
       <DependentUpon>Command_AddToGiveaway.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommandTypeForms\Command_AntiBotOnOff.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandTypeForms\Command_AntiBotOnOff.Designer.cs">
+      <DependentUpon>Command_AntiBotOnOff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandTypeForms\Command_banUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandTypeForms\Command_banUser.Designer.cs">
+      <DependentUpon>Command_banUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommandTypeForms\Command_notCompleted.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -73,6 +85,18 @@
     </Compile>
     <Compile Include="CommandTypeForms\Command_sayText.Designer.cs">
       <DependentUpon>Command_sayText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandTypeForms\Command_TimeoutUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandTypeForms\Command_TimeoutUser.Designer.cs">
+      <DependentUpon>Command_TimeoutUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandTypeForms\Command_wisperText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandTypeForms\Command_wisperText.Designer.cs">
+      <DependentUpon>Command_wisperText.cs</DependentUpon>
     </Compile>
     <Compile Include="CommandTypeForms\Component_Control.cs" />
     <Compile Include="CommandTypeForms\TBotCommand.cs" />
@@ -100,11 +124,23 @@
     <EmbeddedResource Include="CommandTypeForms\Command_AddToGiveaway.resx">
       <DependentUpon>Command_AddToGiveaway.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CommandTypeForms\Command_AntiBotOnOff.resx">
+      <DependentUpon>Command_AntiBotOnOff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandTypeForms\Command_banUser.resx">
+      <DependentUpon>Command_banUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CommandTypeForms\Command_notCompleted.resx">
       <DependentUpon>Command_notCompleted.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandTypeForms\Command_sayText.resx">
       <DependentUpon>Command_sayText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandTypeForms\Command_TimeoutUser.resx">
+      <DependentUpon>Command_TimeoutUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandTypeForms\Command_wisperText.resx">
+      <DependentUpon>Command_wisperText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

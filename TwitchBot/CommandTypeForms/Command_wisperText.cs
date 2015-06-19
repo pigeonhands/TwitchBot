@@ -10,24 +10,21 @@ using System.Windows.Forms;
 
 namespace TwitchBot.CommandTypeForms
 {
-    public partial class Command_AddToGiveaway : UserControl
+    public partial class Command_wisperText : UserControl
     {
         CommandCallback callback;
-        public Command_AddToGiveaway(CommandCallback cc)
+        public Command_wisperText(CommandCallback cc)
         {
             callback = cc;
             InitializeComponent();
         }
 
-        private void Command_AddToGiveaway_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            if(callback != null)
-                callback(new CommandData(TBotCommandType.AddToGiveaway), false);
+            /*
+            if (callback != null)
+                callback(new CommandData(TBotCommandType.WisperText, richTextBox1.Text));
+             * */
         }
     }
 }

@@ -37,7 +37,7 @@ namespace TwitchBot.CommandTypeForms
         private void button1_Click_1(object sender, EventArgs e)
         {
             if (callback != null)
-                callback(new CommandData(TBotCommandType.SayText, richTextBox1.Text));
+                callback(new CommandData(TBotCommandType.SayText, richTextBox1.Text), false);
         }
     }
 }

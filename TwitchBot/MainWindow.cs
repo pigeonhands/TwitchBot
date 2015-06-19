@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -70,6 +71,9 @@ namespace TwitchBot
                 TBotCommand _tCom = (TBotCommand)i.Tag;
                 
                 string msgCompare = message.Text;
+                string msgCompareSplit = message.Text;
+                if (msgCompare.Contains(" "))
+                    msgCompareSplit = msgCompare.Split(' ')[0];
                 if (!_tCom.FlagCaseSensitive)
                     msgCompare = msgCompare.ToLower();
                 if (_tCom.FlagIsRegex)
@@ -82,7 +86,7 @@ namespace TwitchBot
                 }
                 else
                 {
-                    if (i.Text.ToLower() == msgCompare)
+                    if (i.Text.ToLower() == msgCompare || i.Text.ToLower() == msgCompareSplit)
                     {
                         command = _tCom;
                         break;
@@ -92,18 +96,69 @@ namespace TwitchBot
             }
             if (command != null)
                 ExecuteCommand(command, message);
+            CheckBlacklist(message);
+        }
+
+        bool IsMod(string username)
+        {
+            return modList.Items.Contains(username.ToLower());
         }
 
         void ExecuteCommand(TBotCommand command, TBotMessage msg)
         {
+            string[] msgBreakdown;
+            if (command.RequiresModerator && !IsMod(msg.Username))
+                return;
             switch(command.Data.Type)
             {
                 case TBotCommandType.SayText:
                     Bot.SayAsync(((string)command.Data.TagData[0]).Replace("{username}", msg.Username));
                     break;
+
                 case TBotCommandType.AddToGiveaway:
                     AddToGiveaway(msg.Username);
                     break;
+
+                case TBotCommandType.BanUser:
+                    msgBreakdown = msg.Text.Split(' ');
+                    if (msgBreakdown.Length != 2)
+                        return;
+                    Bot.Ban(msgBreakdown[1].ToLower());
+                    break;
+
+                case TBotCommandType.TimeoutUser:
+                    msgBreakdown = msg.Text.Split(' ');
+                    if (msgBreakdown.Length != 3)
+                        return;
+                    int time;
+                    if (!int.TryParse(msgBreakdown[2], out time))
+                        return;
+                    Bot.Timeout(msgBreakdown[1], time);
+                    break;
+
+                case TBotCommandType.AntiBot:
+                    msgBreakdown = msg.Text.Split(' ');
+                    if (msgBreakdown.Length != 2) 
+                        return;
+                    if (msgBreakdown[1].ToLower() != "on" && msgBreakdown[1].ToLower() != "off")
+                        return;
+                    //this.Invoke(msgBreakdown[1].ToLower() == "on" ? (Action)Bot.AntiBotOn : Bot.AntiBotOff);
+                    Bot.GetType().GetMethod("AntiBot" + msgBreakdown[1], System.Reflection.BindingFlags.IgnoreCase).Invoke(null, new object[] { });
+                    break;
+            }
+        }
+
+        void CheckBlacklist(TBotMessage msg)
+        {
+            if (IsMod(msg.Username))
+                return;
+            foreach(string s in blacklistedWords.Items)
+            {
+                if (msg.Text.ToLower().Contains(s.ToLower()))
+                {
+                    _bot.Timeout(msg.Username, 60 * 2);
+                    //_bot.Say("The word \"{0}\" is blacklisted, please refrain from using it.", s);
+                }
             }
         }
 
@@ -152,6 +207,10 @@ namespace TwitchBot
                             i.SubItems[1].Text += " [R]";
                         if(acf.Command.FlagCaseSensitive)
                             i.SubItems[1].Text += " [C]";
+                        if (acf.Command.RequiresModerator)
+                            i.Group = commandList.Groups["mod"];
+                        else
+                            i.Group = commandList.Groups["everyone"];
                         commandList.Items.Add(i);
                     }
                     else
@@ -184,6 +243,10 @@ namespace TwitchBot
                             i.SubItems[1].Text += " [R]";
                         if (acf.Command.FlagCaseSensitive)
                             i.SubItems[1].Text += " [C]";
+                        if (acf.Command.RequiresModerator)
+                            i.Group = commandList.Groups["mod"];
+                        else
+                            i.Group = commandList.Groups["everyone"];
                     }
                 }
             }
@@ -227,6 +290,7 @@ namespace TwitchBot
             string winner = (string)giveawayEntries.Items[r.Next(0, giveawayEntries.Items.Count - 1)];
             GiveawayWinner.Text = winner;
             _bot.SayAsync("{0} has won the giveaway!", winner);
+            MessageBox.Show(string.Format("{0} has won the giveaway!", winner));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -261,7 +325,10 @@ namespace TwitchBot
             {
                 if(psb.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    blacklistedWords.Items.Add(psb.InputText);
+                    if (psb.InputText != string.Empty && !blacklistedWords.Items.Contains(psb.InputText))
+                    {
+                        blacklistedWords.Items.Add(psb.InputText);
+                    }
                 }
             }
         }
@@ -273,8 +340,95 @@ namespace TwitchBot
                 ofd.Filter = "Text file|*.txt";
                 if(ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    //FileExists and import txt
+                    if (!System.IO.File.Exists(ofd.FileName))
+                        return;
+                    using(StreamReader _blFile = new StreamReader(ofd.FileName))
+                    {
+                        string line = string.Empty;
+                        while((line = _blFile.ReadLine()) != null)
+                        {
+                            if(line != string.Empty && !blacklistedWords.Items.Contains(line))
+                            {
+                                blacklistedWords.Items.Add(line);
+                            }
+                        }
+                        _blFile.Close();
+                    }
                 }
+            }
+        }
+
+        private void clearListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Are you sure you want to clear the blacklisted words?", "Clear Blacklist", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                blacklistedWords.Items.Clear();
+            }
+        }
+
+        private void removeSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(blacklistedWords.SelectedIndex != -1)
+                blacklistedWords.Items.RemoveAt(blacklistedWords.SelectedIndex);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _bot.AntiBotOn();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            _bot.AntiBotOff();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            _bot.SubsriberChat();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            _bot.SubscriberChatOff();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            _bot.Slow(30);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            _bot.Slowoff();
+        }
+
+        private void addModeratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using(PromptStringBox pfs = new PromptStringBox("Username of moderator: ", "Add new moderator"))
+            {
+                if(pfs.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    if(!modList.Items.Contains(pfs.InputText.ToLower()))
+                    {
+                        modList.Items.Add(pfs.InputText.ToLower());
+                    }
+                }
+            }
+        }
+
+        private void removeSelectedModeratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(modList.SelectedIndex != -1)
+            {
+                modList.Items.RemoveAt(modList.SelectedIndex);
+            }
+        }
+
+        private void clearListToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Clear moderator list?", "Clear list?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                modList.Items.Clear();
             }
         }
     }

@@ -115,12 +115,8 @@ namespace TwitchBot
 
                     string message = lineSegments[3].Substring(1, lineSegments[3].Length - 1);
 
-                    try
-                    {
-                        if (OnMessageRead != null)
-                            OnMessageRead(this, new TBotMessage(sender, message), line);
-                    }
-                    catch { }
+                    if (OnMessageRead != null)
+                        OnMessageRead(this, new TBotMessage(sender, message), line);
                 }
                 Cleanup();
                 if (OnDisconnect != null)
@@ -170,6 +166,75 @@ namespace TwitchBot
             if (writer != null)
             {
                 writer.WriteLine("PRIVMSG {0} :{1}", Channel, Message);
+                await writer.FlushAsync();
+            }
+        }
+
+        public void Timeout(string user, int time)
+        {
+            SayAsync("/timeout {0} {1}", user, time.ToString());
+        }
+
+        public void Ban(string user)
+        {
+            SayAsync("/ban {0}", user);
+        }
+
+        public void UnBan(string user)
+        {
+            SayAsync("/unban {0}", user);
+        }
+
+        public void Slow(int interval)
+        {
+            SayAsync("/slow {0}", interval.ToString());
+        }
+
+        public void Slowoff()
+        {
+            SayAsync("/slowoff");
+        }
+
+        public void SubsriberChat()
+        {
+            SayAsync("/subscribers");
+        }
+
+        public void SubscriberChatOff()
+        {
+            SayAsync("/subscribersoff");
+        }
+
+        public void ClearChat()
+        {
+            SayAsync("/clear");
+        }
+
+        public void AntiBotOn()
+        {
+            SayAsync("/r9kbeta");
+        }
+
+        public void AntiBotOff()
+        {
+            SayAsync("/r9kbetaoff");
+        }
+
+        public void ModUser(string username)
+        {
+            SayAsync("/mod {0}", username);
+        }
+
+        public void UnmodUser(string username)
+        {
+            SayAsync("/unmod {0}", username);
+        }
+
+        public async void Wisper(string username, string message)
+        {
+            if (writer != null)
+            {
+                writer.WriteLine("PRIVMSG #jtv :/w {0} {1}", username, message);
                 await writer.FlushAsync();
             }
         }

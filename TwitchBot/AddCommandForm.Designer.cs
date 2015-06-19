@@ -35,6 +35,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.flagIsregex = new System.Windows.Forms.CheckBox();
             this.flagCasesensitive = new System.Windows.Forms.CheckBox();
+            this.modOnly = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -93,18 +94,29 @@
             // flagCasesensitive
             // 
             this.flagCasesensitive.AutoSize = true;
-            this.flagCasesensitive.Location = new System.Drawing.Point(97, 57);
+            this.flagCasesensitive.Location = new System.Drawing.Point(93, 57);
             this.flagCasesensitive.Name = "flagCasesensitive";
             this.flagCasesensitive.Size = new System.Drawing.Size(113, 17);
             this.flagCasesensitive.TabIndex = 6;
             this.flagCasesensitive.Text = "FlagCaseSensitive";
             this.flagCasesensitive.UseVisualStyleBackColor = true;
             // 
+            // modOnly
+            // 
+            this.modOnly.AutoSize = true;
+            this.modOnly.Location = new System.Drawing.Point(208, 57);
+            this.modOnly.Name = "modOnly";
+            this.modOnly.Size = new System.Drawing.Size(98, 17);
+            this.modOnly.TabIndex = 7;
+            this.modOnly.Text = "Moderator Only";
+            this.modOnly.UseVisualStyleBackColor = true;
+            // 
             // AddCommandForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(308, 226);
+            this.Controls.Add(this.modOnly);
             this.Controls.Add(this.flagCasesensitive);
             this.Controls.Add(this.flagIsregex);
             this.Controls.Add(this.textBox1);
@@ -130,5 +142,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox flagIsregex;
         private System.Windows.Forms.CheckBox flagCasesensitive;
+        private System.Windows.Forms.CheckBox modOnly;
     }
 }

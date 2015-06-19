@@ -12,6 +12,7 @@ namespace TwitchBot.CommandTypeForms
         private string _flag;
         private bool _flagisregex = false;
         private bool _flagcasesensitive = false;
+        private bool _requiresModerator = false;
 
         public TBotCommand(CommandData cd, string flag)
         {
@@ -36,6 +37,11 @@ namespace TwitchBot.CommandTypeForms
         {
             get { return _flagcasesensitive; }
             set { _flagcasesensitive = value; }
+        }
+        public bool RequiresModerator
+        {
+            get { return _requiresModerator; }
+            set { _requiresModerator = value; }
         }
     }
 }
