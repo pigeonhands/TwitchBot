@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -11,6 +12,7 @@ namespace TwitchBot
     public delegate void MessageReadCallback(TBot sender, TBotMessage message, string raw);
     public delegate void DisconnectedCallback(TBot sender, Exception ex);
     public delegate void ConnectCallback(TBot sender, bool success);
+
     public class TBot
     {
         private string _username, _oauth, _channel;
@@ -57,9 +59,11 @@ namespace TwitchBot
             try
             {
                 _client = new TcpClient("irc.twitch.tv", 6667);
+                _client.ReceiveTimeout = 0;
                 reader = new StreamReader(_client.GetStream());
                 writer = new StreamWriter(_client.GetStream());
                 HandleStreamReading();
+                Heartbeat();
             }
             catch
             {
@@ -68,6 +72,16 @@ namespace TwitchBot
                     OnDisconnect(this, new Exception("Failed to connect to server"));
             }
             
+        }
+
+        private async void Heartbeat()
+        {
+            while (writer != null)
+            {
+                writer.WriteLine("PING");
+                writer.Flush();
+                await Task.Delay(30);
+            }
         }
 
         private async void HandleStreamReading()
@@ -100,8 +114,8 @@ namespace TwitchBot
                 string line = string.Empty;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
+                    Debug.Print(line);
                     string[] lineSegments = line.Split(new char[] {' '}, 4);
-
                     if(lineSegments[0] == "PING")
                     {
                         SayAsync("PONG {0}", lineSegments[1]);
@@ -250,11 +264,11 @@ namespace TwitchBot
             SayAsync("/unmod {0}", username);
         }
 
-        public async void Wisper(string username, string message)
+        public async void Whisper(string username, string message)
         {
             if (writer != null)
             {
-                writer.WriteLine("PRIVMSG #jtv :/w {0} {1}", username, message);
+                writer.WriteLine("PRIVMSG {0} :{1}", username, message);
                 await writer.FlushAsync();
             }
         }

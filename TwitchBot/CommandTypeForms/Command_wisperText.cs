@@ -21,10 +21,10 @@ namespace TwitchBot.CommandTypeForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*
-            if (callback != null)
-                callback(new CommandData(TBotCommandType.WisperText, richTextBox1.Text));
-             * */
+            
+            //if (callback != null)
+              //  callback(new CommandData(TBotCommandType.WisperText, richTextBox1.Text), ParamiterType.NoParamiters);
+             
         }
     }
 }

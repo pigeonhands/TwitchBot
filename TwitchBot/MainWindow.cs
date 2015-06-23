@@ -195,6 +195,10 @@ namespace TwitchBot
                                     commandList.Items.Remove(i);
                         }
                     break;
+
+                //case TBotCommandType.WisperText:
+                  //  Bot.Whisper(msg.Username, ((string)command.Data.TagData[0]).Replace("{username}", msg.Username));
+                    //break;
             }
         }
 

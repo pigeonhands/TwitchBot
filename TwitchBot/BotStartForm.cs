@@ -31,7 +31,8 @@ namespace TwitchBot
 
         private void BotStartForm_Load(object sender, EventArgs e)
         {
-
+            _bot = new TBot("BahNahNahBot", "oauth:68g2aewlvaon4i99ze354odf99keti", "BahNahNah");
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
     }
 }

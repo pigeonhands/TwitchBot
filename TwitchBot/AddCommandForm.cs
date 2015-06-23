@@ -82,8 +82,11 @@ namespace TwitchBot
                 case TBotCommandType.EndGiveaway:
                     SetCommandPanel(new Command_EndGiveaway(CommandChosen));
                     break;
-
-
+                    /*
+                case TBotCommandType.WisperText:
+                    SetCommandPanel(new Command_wisperText(CommandChosen));
+                    break;
+                    */
                 default:
                     SetCommandPanel(new Command_notCompleted());
                     break;
