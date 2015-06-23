@@ -80,7 +80,7 @@ namespace TwitchBot
             {
                 writer.WriteLine("PING");
                 writer.Flush();
-                await Task.Delay(30);
+                await Task.Delay(20000);
             }
         }
 
